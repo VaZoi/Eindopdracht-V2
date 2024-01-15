@@ -1,39 +1,52 @@
 <?php
+require '../user.php';
 
-require 'user.php';
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $firstname = htmlspecialchars($_POST['firstname']);
-    $lastname = htmlspecialchars($_POST['lastname']);
-    $dateofbirth = htmlspecialchars($_POST['dateofbirth']);
-    $email = htmlspecialchars($_POST['email']);
-    $phonenumber = htmlspecialchars($_POST['phonenumber']);
-    $postalcode = htmlspecialchars($_POST['postalcode']);
-    $country = htmlspecialchars($_POST['country']);
-    $city = htmlspecialchars($_POST['city']);
-    $street = htmlspecialchars($_POST['street']);
-    $housenumber = htmlspecialchars($_POST['housenumber']);
-    $password = htmlspecialchars($_POST['password']);
-
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        try {
-            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-                echo "CSRF token validation failed";
-                exit();
-            }
-            
-            unset($_SESSION['csrf_token']);
-
-            $lastId = $user->adduser($firstname, $lastname, $dateofbirth, $email, $phonenumber, $postalcode, $country, $city, $street, $housenumber, $password);
-            header("location:home.php?process=$lastId");
-        } catch (\Exception $e) {
-            echo "Error: " . $e->getMessage();
-        }
-    }
+if (!$user->isLoggedInAsAdmin()) {
+    header("Location: ../login.php");
+    exit();
 }
 
-$csrfToken = $user->generateCsrfToken();
-$_SESSION['csrf_token'] = $csrfToken;
+if (!isset($_GET['user_id'])) {
+    echo "User ID not provided.";
+    exit();
+}
+
+$user_id = intval($_GET['user_id']);
+
+try {
+    $userInfo = $user->firstuser($user_id);
+} catch (\Exception $e) {
+    echo "Error: " . $e->getMessage();
+    exit();
+}
+
+if (empty($userInfo)) {
+    echo "User not found.";
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $updatedFirstName = htmlspecialchars($_POST['firstname']);
+    $updatedLastName = htmlspecialchars($_POST['lastname']);
+    $updatedDateOfBirth = htmlspecialchars($_POST['dateofbirth']);
+    $updatedEmail = htmlspecialchars($_POST['email']);
+    $updatedPhoneNumber = htmlspecialchars($_POST['phonenumber']);
+    $updatedPostalCode = htmlspecialchars($_POST['postalcode']);
+    $updatedCountry = htmlspecialchars($_POST['country']);
+    $updatedCity = htmlspecialchars($_POST['city']);
+    $updatedStreet = htmlspecialchars($_POST['street']);
+    $updatedHouseNumber = htmlspecialchars($_POST['housenumber']);
+    $updatedPassword = htmlspecialchars($_POST['password']);
+
+    try {
+        $user->edituser($updatedFirstName, $updatedLastName, $updatedDateOfBirth, $updatedEmail, $updatedPhoneNumber, $updatedPostalCode, $updatedCountry, $updatedCity, $updatedStreet, $updatedHouseNumber, $updatedPassword, $user_id);
+
+        header("Location: admin_customers.php");
+        exit();
+    } catch (\Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -41,23 +54,35 @@ $_SESSION['csrf_token'] = $csrfToken;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet" href="register.css">
-    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <title>Edit User</title>
+    <link rel="stylesheet" href="admin_edit.css">
+    <link rel="icon" type="image/x-icon" href="../images/logo.png">
 </head>
 <body>
-    <h2>Register</h2>
+    <div class="sidebar">
+        <a href="../admin.php">Dashboard</a>
+        <a href="../booking/admin_bookings.php">Bookings</a>
+        <a class="active" href="admin_customers.php">Customers</a>
+        <a href="../employees/admin_staff.php">Employees</a>
+        <a href="../cars/admin_cars.php">Cars</a>
+        <a href="../locations/admin_locations.php">Locations</a>
+        <a href="../home.php">Home Page</a>
+        <a href="../logout.php">Logout</a>
+    </div>
+
+    <main>
+    <h2>Edit User</h2>
+    
     <form method="POST">
-        <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-        Firstname: <input type="text" name="firstname" placeholder="First Name" required><br>
-        Lastname: <input type="text" name="lastname" placeholder="Last Name" required><br>
-        Date of Birth: <input type="date" name="dateofbirth" placeholder='Date of birth' required
-                             max="<?php echo date('Y-m-d', strtotime('-18 years')); ?>"><br>
-        Email: <input type="email" name="email" placeholder="Email" required><br>
-        Phonenumber: <input type="tel" name="phonenumber" placeholder="Phone Number" required><br>
-        Postal code: <input type="text" name="postalcode" placeholder="Postal Code"required><br>
-        <label for="country">Country:</label>
-                <select id="country" name="country" required>
+        <input type="text" name="firstname" value="<?php echo $userInfo['firstname']; ?>" required><br>
+        <input type="text" name="lastname" value="<?php echo $userInfo['lastname']; ?>" required><br>
+        <input type="date" name="dateofbirth" value="<?php echo $userInfo['date_of_birth']; ?>" required
+               max="<?php echo date('Y-m-d', strtotime('-18 years')); ?>"><br>
+        <input type="email" name="email" value="<?php echo $userInfo['email']; ?>" required><br>
+        <input type="tel" name="phonenumber" value="<?php echo $userInfo['phonenumber']; ?>" required><br>
+        <input type="text" name="postalcode" value="<?php echo $userInfo['postalcode']; ?>" required><br>
+        <select id="country" name="country" required>
+        <option value="<?php $car['country']; ?>"></option>
                 <?php
                 $countries = [
                     "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria",
@@ -88,13 +113,15 @@ $_SESSION['csrf_token'] = $csrfToken;
                 }
                 ?>
                 </select><br>
-        City: <input type="text" name="city" placeholder="City" required><br>
-        Street: <input type="text" name="street" placeholder="Street" required><br>
-        Housenumber: <input type="number" name="housenumber" placeholder="House Number" required><br>
-        Wachtwoord: <input type="password" name="password" placeholder="Password" required><br>
-        <input type="submit" value="Register">
-        <a href="login.php">Login here</a>
+        <input type="text" name="city" value="<?php echo $userInfo['city']; ?>" required><br>
+        <input type="text" name="street" value="<?php echo $userInfo['street']; ?>" required><br>
+        <input type="number" name="housenumber" value="<?php echo $userInfo['housenumber']; ?>" required><br>
+        <input type="password" name="password" placeholder="Enter new password"><br>
+
+        <input class="submit" type="submit" value="Save Changes">
     </form>
+
+    </main>
     
 </body>
 </html>

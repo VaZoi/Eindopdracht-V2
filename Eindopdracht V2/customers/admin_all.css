@@ -1,0 +1,120 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    padding: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+}
+
+.sidebar a:hover {
+    background-color: rgba(226, 70, 255, 255);
+}
+
+.sidebar .active {
+    background-color: rgba(226, 70, 255, 255);
+}
+
+main {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+.addcustomer {
+    background-color: #f8f8f8;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(226, 70, 255, 255);
+}
+
+.addcustomer h2 {
+    color: #333;
+}
+
+.addcustomer form {
+    margin-top: 10px;
+}
+
+.addcustomer label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.addcustomer select,
+.addcustomer input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.submit {
+    background-color: rgba(226, 70, 255, 255);
+    border: none;
+    color: white;
+}
+
+.addcustomer button {
+    background-color: rgba(226, 70, 255, 255);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.addcustomer button:hover {
+    background-color: rgba(226, 70, 255, 255);
+}
+
+.showcustomers h2 {
+    color: #333;
+}
+
+.showcustomers table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.showcustomers th,
+.showcustomers td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.showcustomers th {
+    background-color: rgba(226, 70, 255, 255);
+    color: white;
+}
+
+.showcustomers a {
+    text-decoration: none;
+    color: rgba(226, 70, 255, 255);
+}
+
+.showcustomers a:hover {
+    text-decoration: underline;
+}
+
+.showcustomers p {
+    color: #333;
+}

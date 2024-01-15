@@ -37,19 +37,24 @@ $_SESSION['csrf_token'] = $csrfToken;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Systeem</title>
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
 </head>
 <body>
-    <h2>Login</h2>
-    <?php if ($errorMessage !== ''): ?>
-        <p style="color: red;"><?php echo $errorMessage; ?></p>
-    <?php endif; ?>
-    <form method="POST">
-        <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-        Email: <input type="text" name="email" placeholder="Email" required><br>
-        Password: <input type="password" name="password" placeholder="Password" required><br>
-        <input type="submit">
-    </form>
-    <a href="register.php">Register here</a>
+    <main>
+        <h2>Login</h2>
+        <?php if ($errorMessage !== ''): ?>
+            <p style="color: red;"><?php echo $errorMessage; ?></p>
+        <?php endif; ?>
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
+            Email: <input type="text" name="email" placeholder="Email" required><br>
+            Password: <input type="password" name="password" placeholder="Password" required><br>
+            <input type="submit" value="Login">
+            <a href="register.php">Register here</a>
+        </form>
+        
+    </main>
 </body>
 </html>

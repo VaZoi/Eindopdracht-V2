@@ -1,0 +1,113 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    padding: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+}
+
+.sidebar a:hover {
+    background-color: rgba(226, 70, 255, 255);
+}
+
+.sidebar .active {
+    background-color: rgba(226, 70, 255, 255);
+}
+
+main {
+    margin-left: 200px;
+    padding: 20px;
+}
+
+.addlocations {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: rgba(226, 70, 255, 255);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: rgba(226, 70, 255, 255);
+}
+
+.showlocations table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.showlocations th,
+.showlocations td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.showlocations th {
+    background-color: rgba(226, 70, 255, 255);
+    color: white;
+}
+
+.showlocations td img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.showlocations a {
+    text-decoration: none;
+    margin-right: 10px;
+    color: #333;
+}
+
+.showlocations a:hover {
+    color: rgba(226, 70, 255, 255);
+}
+
+.showlocations table tr td a {
+    text-decoration: none;
+    color: rgba(226, 70, 255, 255);
+}
