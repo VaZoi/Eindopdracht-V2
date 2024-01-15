@@ -81,22 +81,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="hidden" name="csrf_token" value="<?php echo $user->generateCsrfToken(); ?>">
 
                 <label for="brand">Brand:</label>
-                <input type="text" id="brand" name="brand" value="<?php echo $carinfo['brand']; ?>" required><br>
+                <input type="text" name="brand" value="<?php echo $carinfo['brand']; ?>" required><br>
 
                 <label for="model">Model:</label>
-                <input type="text" id="model" name="model" value="<?php echo $carinfo['model']; ?>" required><br>
+                <input type="text" name="model" value="<?php echo $carinfo['model']; ?>" required><br>
 
                 <label for="licence_plate">License Plate:</label>
-                <input type="text" id="licence_plate" name="licence_plate" value="<?php echo $carinfo['licence_plate']; ?>" required><br>
+                <input type="text" name="licence_plate" value="<?php echo $carinfo['licence_plate']; ?>" required><br>
 
                 <label for="year">Year:</label>
-                <input type="number" id="year" name="year" min="1900" max="2099" value="<?php echo $carinfo['year']; ?>" required><br>
+                <input type="number" name="year" min="1900" max="2099" value="<?php echo $carinfo['year']; ?>" required><br>
 
                 <label for="color">Color:</label>
-                <input type="text" id="color" name="color" value="<?php echo $carinfo['color']; ?>" required><br>
+                <input type="text" name="color" value="<?php echo $carinfo['color']; ?>" required><br>
 
                 <label for="fueltype">Fuel Type:</label>
-                <select id="fueltype" name="fueltype" required>
+                <select name="fueltype" required>
                     <option value="<?php echo $carinfo['fueltype']; ?>"></option>
                     <option value="Petrol">Petrol</option>
                     <option value="Electric">Electric</option>
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </select><br>
 
                 <label for="image">Image:</label>
-                <input type="file" id="image" name="image" required><br>
+                <input type="file" name="image" value="<?php echo $carinfo['image']; ?>" required><br>
 
                 <input type="submit" value="Save Changes">
             </form>

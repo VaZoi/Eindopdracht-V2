@@ -46,8 +46,8 @@ try {
                 <label for="image">Image:</label>
                 <input type="file" name="image" required><br>
 
-                <label for="name">Location Name:</label>
-                <input type="text" name="name" required><br>
+                <label for="location_name">Location Name:</label>
+                <input type="text" name="location_name" required><br>
 
                 <label for="postalcode">Postal Code:</label>
                 <input type="text" name="postalcode" required><br>
