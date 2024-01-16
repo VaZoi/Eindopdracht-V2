@@ -35,7 +35,7 @@ try {
                 <li><a href="booked.php"> Bookings</a></li>
                 <?php
                     if ($user->isLoggedInAsAdmin()) {
-                        echo '<li><a href="admin.php">Admin Page</a></a>';
+                        echo '<li><a href="../admin.php">Admin Page</a></a>';
                     }
                 ?>
                 <li><a href="../logout.php"> Logout</a></li>

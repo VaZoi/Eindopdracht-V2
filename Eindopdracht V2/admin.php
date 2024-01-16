@@ -47,12 +47,12 @@ $totalbookingsCount = $user->gettotalbookings();
     </div>
     <main>
         <section>
-            <div class="live-info" onclick="window.location.href='bookings/admin_booking.php'">
+            <div class="live-info" onclick="window.location.href='booking/admin_bookings.php'">
                 <h3>Total Active Bookings: </h3>
                 <h2><?php echo $activebookingsCount; ?></h2>
             </div>
 
-            <div class="live-info" onclick="window.location.href='bookings/admin_booking.php'">
+            <div class="live-info" onclick="window.location.href='booking/admin_bookings.php'">
                 <h3>Total Bookings: </h3>
                 <h2><?php echo $totalbookingsCount; ?></h2>
             </div>

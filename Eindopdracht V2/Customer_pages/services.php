@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require '../user.php';
 
 if (!$user->isLoggedIn()) {
